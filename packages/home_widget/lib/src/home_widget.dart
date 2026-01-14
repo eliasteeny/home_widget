@@ -230,24 +230,7 @@ class HomeWidget {
           await image.toByteData(format: ui.ImageByteFormat.png);
 
       try {
-        late final String? directory;
-
-        // coverage:ignore-start
-        if (Platform.isIOS) {
-          final PathProviderFoundation provider = PathProviderFoundation();
-          assert(
-            HomeWidget.groupId != null,
-            'No groupId defined. Did you forget to call `HomeWidget.setAppGroupId`',
-          );
-          directory = await provider.getContainerPath(
-            appGroupIdentifier: HomeWidget.groupId!,
-          );
-        } else {
-          // coverage:ignore-end
-          directory = (await getApplicationSupportDirectory()).path;
-        }
-
-        final String path = '$directory/home_widget/$key.png';
+        final String path = await _getPathToRenderTo(key);
         final File file = File(path);
         if (!await file.exists()) {
           await file.create(recursive: true);
@@ -282,5 +265,63 @@ class HomeWidget {
             .map(HomeWidgetInfo.fromMap)
             .toList() ??
         [];
+  }
+
+  /// Checks if an image is already rendered
+  static Future<bool> isFlutterWidgetRendered(String key) async {
+    final File file = File(await _getPathToRenderTo(key));
+
+    return file.exists();
+  }
+
+  /// Copies an already rendered widget to another key.
+  static Future<String> copyRenderedFlutterWidget({
+    required String fromKey,
+    required String toKey,
+  }) async {
+    final File fromFile = File(await _getPathToRenderTo(fromKey));
+
+    if (!await fromFile.exists()) {
+      throw Exception('From key doesn\'t exist');
+    }
+
+    final toFile = await fromFile.copy(await _getPathToRenderTo(toKey));
+
+    _channel.invokeMethod<bool>('saveWidgetData', {
+      'id': toKey,
+      'data': toFile.path,
+    });
+
+    return toFile.path;
+  }
+
+  /// Deletes a rendered widget.
+  static Future<void> deletedRenderedWidget(String key) async {
+    final File file = File(await _getPathToRenderTo(key));
+
+    if (await file.exists()) {
+      await file.delete();
+    }
+  }
+
+  static Future<String> _getPathToRenderTo(String key) async {
+    late final String? directory;
+
+    // coverage:ignore-start
+    if (Platform.isIOS) {
+      final PathProviderFoundation provider = PathProviderFoundation();
+      assert(
+        HomeWidget.groupId != null,
+        'No groupId defined. Did you forget to call `HomeWidget.setAppGroupId`',
+      );
+      directory = await provider.getContainerPath(
+        appGroupIdentifier: HomeWidget.groupId!,
+      );
+    } else {
+      // coverage:ignore-end
+      directory = (await getApplicationSupportDirectory()).path;
+    }
+
+    return '$directory/home_widget/$key.png';
   }
 }
