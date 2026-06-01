@@ -233,7 +233,7 @@ class HomeWidget {
     String? appGroupId,
   }) async {
     try {
-      final String path = await _getPathToRenderTo(key);
+      final String path = await _getPathToRenderTo(key, extension: extension, appGroupId: appGroupId);
       final File file = File(path);
       if (!await file.exists()) {
         await file.create(recursive: true);
@@ -412,7 +412,12 @@ class HomeWidget {
 
   /// Checks if an image is already rendered
   static Future<bool> isFlutterWidgetRendered(String key) async {
-    final File file = File(await _getPathToRenderTo(key));
+    final File file = File(
+      await _getPathToRenderTo(
+        key,
+        extension: 'png',
+      ),
+    );
 
     return file.exists();
   }
