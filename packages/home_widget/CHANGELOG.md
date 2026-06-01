@@ -1,3 +1,25 @@
+## 0.9.2
+
+ - **FIX**: Add FlutterFramework to iOS SPM package ([#419](https://github.com/abausg/home_widget/issues/419)). ([85aa4bf2](https://github.com/abausg/home_widget/commit/85aa4bf2f56feddf1b8d4c6f6a3954363308317d))
+ - **FIX**: Support Android Gradle Plugin 9.x ([#420](https://github.com/abausg/home_widget/issues/420)). ([cb2b4ad5](https://github.com/abausg/home_widget/commit/cb2b4ad530da0a599b283cd109fa01d928dae662))
+ - **FIX**: Pin android dependency versions to prevent pre-release pickup ([#418](https://github.com/abausg/home_widget/issues/418)). ([e42f1f7c](https://github.com/abausg/home_widget/commit/e42f1f7cf53f23b0e2e2092463a2ef22f67b6d57))
+ - **FEAT**: Support passing appGroupId directly with functions ([#416](https://github.com/abausg/home_widget/issues/416)). ([55e6f435](https://github.com/abausg/home_widget/commit/55e6f435cb573a570a524d662d2f2d0bd2c50f43))
+
+## 0.9.1
+
+ - **FEAT**: Configurable widgets for Android ([#396](https://github.com/abausg/home_widget/issues/396)). ([faf16897](https://github.com/abausg/home_widget/commit/faf16897d6667b54799c61fa714eec9247dda1c9))
+ - **FEAT**: Add support for `HomeWidget.saveFile` and `HomeWidget.saveImage` ([#409](https://github.com/abausg/home_widget/issues/409)). ([bf965fbf](https://github.com/abausg/home_widget/commit/bf965fbf37e3d14aeb32077184897025014d994f))
+
+## 0.9.0
+
+> Note: This release has breaking changes. See the [migration guide](https://docs.page/ABausG/home_widget/migrations/0.9.0) for details on how to migrate.
+
+ - **FIX**: Fix Xcode 26 support for interactive Widgets ([#391](https://github.com/abausg/home_widget/issues/391)). ([35047c6a](https://github.com/abausg/home_widget/commit/35047c6af5f2847652a51eb760c0d2ff70953259))
+ - **FIX**: Fix iOS Widget Updating using only `name` parameter ([#381](https://github.com/abausg/home_widget/issues/381)). ([77919dbb](https://github.com/abausg/home_widget/commit/77919dbb464c238149cb7662c9c8bfd47b7f11f9))
+ - **BREAKING** **FIX**: Add missing package name to HomeWidget Glance files ([#365](https://github.com/abausg/home_widget/issues/365)). ([caf6a1fe](https://github.com/abausg/home_widget/commit/caf6a1fe4d120b3b26b2b6d7aa1b008420790365))
+ - **BREAKING** **FEAT**: Add support for Swift Package Manager ([#393](https://github.com/abausg/home_widget/issues/393)). ([8d3c1ddf](https://github.com/abausg/home_widget/commit/8d3c1ddf4c7b383d4b2028160771828eb9a0033e))
+ - **BREAKING** **CHORE**: Upgrade to melos 7.0.0 ([#382](https://github.com/abausg/home_widget/issues/382)). ([66bffb17](https://github.com/abausg/home_widget/commit/66bffb17909890c3a70050488725d75c8aee46db))
+
 ## 0.8.1
 
  - **FIX**: Use WorkManager for Interactivity on Android. Improves reliability of clicks ([#361](https://github.com/abausg/home_widget/issues/361)). ([b25f8733](https://github.com/abausg/home_widget/commit/b25f87336913844d92ba6484c3516680beb6a3a2))

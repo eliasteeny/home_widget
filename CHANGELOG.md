@@ -3,6 +3,77 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2026-05-25
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
+ - [`home_widget` - `v0.9.2`](#home_widget---v092)
+
+---
+
+#### `home_widget` - `v0.9.2`
+
+ - **FIX**: Add FlutterFramework to iOS SPM package ([#419](https://github.com/abausg/home_widget/issues/419)). ([85aa4bf2](https://github.com/abausg/home_widget/commit/85aa4bf2f56feddf1b8d4c6f6a3954363308317d))
+ - **FIX**: Support Android Gradle Plugin 9.x ([#420](https://github.com/abausg/home_widget/issues/420)). ([cb2b4ad5](https://github.com/abausg/home_widget/commit/cb2b4ad530da0a599b283cd109fa01d928dae662))
+ - **FIX**: Pin android dependency versions to prevent pre-release pickup ([#418](https://github.com/abausg/home_widget/issues/418)). ([e42f1f7c](https://github.com/abausg/home_widget/commit/e42f1f7cf53f23b0e2e2092463a2ef22f67b6d57))
+ - **FEAT**: Support passing appGroupId directly with functions ([#416](https://github.com/abausg/home_widget/issues/416)). ([55e6f435](https://github.com/abausg/home_widget/commit/55e6f435cb573a570a524d662d2f2d0bd2c50f43))
+
+
+## 2026-04-12
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
+ - [`home_widget` - `v0.9.1`](#home_widget---v091)
+
+---
+
+#### `home_widget` - `v0.9.1`
+
+ - **FEAT**: Configurable widgets for Android ([#396](https://github.com/abausg/home_widget/issues/396)). ([faf16897](https://github.com/abausg/home_widget/commit/faf16897d6667b54799c61fa714eec9247dda1c9))
+ - **FEAT**: Add support for `HomeWidget.saveFile` and `HomeWidget.saveImage` ([#409](https://github.com/abausg/home_widget/issues/409)). ([bf965fbf](https://github.com/abausg/home_widget/commit/bf965fbf37e3d14aeb32077184897025014d994f))
+
+
+## 2026-01-04
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - [`home_widget` - `v0.9.0`](#home_widget---v090)
+
+Packages with other changes:
+
+ - There are no other changes in this release.
+
+---
+
+#### `home_widget` - `v0.9.0`
+
+ - **FIX**: Fix Xcode 26 support for interactive Widgets ([#391](https://github.com/abausg/home_widget/issues/391)). ([35047c6a](https://github.com/abausg/home_widget/commit/35047c6af5f2847652a51eb760c0d2ff70953259))
+ - **FIX**: Fix iOS Widget Updating using only `name` parameter ([#381](https://github.com/abausg/home_widget/issues/381)). ([77919dbb](https://github.com/abausg/home_widget/commit/77919dbb464c238149cb7662c9c8bfd47b7f11f9))
+ - **BREAKING** **FIX**: Add missing package name to HomeWidget Glance files ([#365](https://github.com/abausg/home_widget/issues/365)). ([caf6a1fe](https://github.com/abausg/home_widget/commit/caf6a1fe4d120b3b26b2b6d7aa1b008420790365))
+ - **BREAKING** **FEAT**: Add support for Swift Package Manager ([#393](https://github.com/abausg/home_widget/issues/393)). ([8d3c1ddf](https://github.com/abausg/home_widget/commit/8d3c1ddf4c7b383d4b2028160771828eb9a0033e))
+ - **BREAKING** **CHORE**: Upgrade to melos 7.0.0 ([#382](https://github.com/abausg/home_widget/issues/382)). ([66bffb17](https://github.com/abausg/home_widget/commit/66bffb17909890c3a70050488725d75c8aee46db))
+
+
 ## 2025-10-14
 
 ### Changes
