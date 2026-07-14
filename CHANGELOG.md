@@ -3,6 +3,48 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2026-06-07
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
+ - [`home_widget` - `v0.9.3`](#home_widget---v093)
+
+---
+
+#### `home_widget` - `v0.9.3`
+
+ - **FEAT**: Support UIScene Lifecycle ([#423](https://github.com/abausg/home_widget/issues/423)). ([bd899596](https://github.com/abausg/home_widget/commit/bd8995964680fb5507414f54beea4f2e6514b456))
+
+
+## 2026-06-07
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
+ - [`home_widget` - `v0.9.2+1`](#home_widget---v0921)
+
+---
+
+#### `home_widget` - `v0.9.2+1`
+
+ - **FIX**: Apply kotlin plugin when not built in ([#425](https://github.com/abausg/home_widget/issues/425)). ([fc7e800c](https://github.com/abausg/home_widget/commit/fc7e800c661e2fd6ad951a8df16a04d14e8eacc0))
+
+
 ## 2026-05-25
 
 ### Changes

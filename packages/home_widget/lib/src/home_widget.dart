@@ -21,12 +21,7 @@ class HomeWidget {
   /// Save [data] to the Widget Storage
   ///
   /// Returns whether the data was saved or not
-  static Future<bool?> saveWidgetData<T>(
-    String id,
-    T? data, {
-    bool deleteFile = true,
-    String? appGroupId,
-  }) async {
+  static Future<bool?> saveWidgetData<T>(String id, T? data, {bool deleteFile = true, String? appGroupId}) async {
     if (deleteFile && data == null) {
       final raw = await getWidgetData<dynamic>(id, appGroupId: appGroupId);
       if (raw is String && _isHomeWidgetManagedFilePath(raw)) {
@@ -41,11 +36,7 @@ class HomeWidget {
       }
     }
 
-    final arguments = <String, dynamic>{
-      'id': id,
-      'data': data,
-      if (appGroupId != null) 'appGroupId': appGroupId,
-    };
+    final arguments = <String, dynamic>{'id': id, 'data': data, if (appGroupId != null) 'appGroupId': appGroupId};
     return _channel.invokeMethod<bool>('saveWidgetData', arguments);
   }
 
@@ -102,11 +93,7 @@ class HomeWidget {
   /// Returns Data saved with [saveWidgetData]
   /// [id] of Data Saved
   /// [defaultValue] value to use if no data was found
-  static Future<T?> getWidgetData<T>(
-    String id, {
-    T? defaultValue,
-    String? appGroupId,
-  }) {
+  static Future<T?> getWidgetData<T>(String id, {T? defaultValue, String? appGroupId}) {
     final arguments = <String, dynamic>{
       'id': id,
       'defaultValue': defaultValue,
@@ -163,17 +150,13 @@ class HomeWidget {
   /// This enables having Interactive Widgets that can call Dart Code
   /// More Info on setting this up in the README
   @Deprecated('Use `registerInteractivityCallback` instead')
-  static Future<bool?> registerBackgroundCallback(
-    FutureOr<void> Function(Uri?) callback,
-  ) =>
+  static Future<bool?> registerBackgroundCallback(FutureOr<void> Function(Uri?) callback) =>
       registerInteractivityCallback(callback);
 
   /// Register a callback that gets called when clicked on a specific View in a HomeWidget
   /// This enables having Interactive Widgets that can call Dart Code
   /// More Info on setting this up in the README
-  static Future<bool?> registerInteractivityCallback(
-    FutureOr<void> Function(Uri?) callback,
-  ) {
+  static Future<bool?> registerInteractivityCallback(FutureOr<void> Function(Uri?) callback) {
     final args = <dynamic>[
       ui.PluginUtilities.getCallbackHandle(callbackDispatcher)?.toRawHandle(),
       ui.PluginUtilities.getCallbackHandle(callback)?.toRawHandle(),
@@ -198,11 +181,7 @@ class HomeWidget {
       throw ArgumentError.value(extension, 'extension', 'must not be empty');
     }
     if (ext.contains('/') || ext.contains(r'\') || ext.contains('..')) {
-      throw ArgumentError.value(
-        extension,
-        'extension',
-        'must not contain path separators',
-      );
+      throw ArgumentError.value(extension, 'extension', 'must not contain path separators');
     }
     return ext;
   }
@@ -212,11 +191,7 @@ class HomeWidget {
       throw ArgumentError.value(key, 'key', 'must not be empty');
     }
     if (key.contains('/') || key.contains(r'\') || key.contains('..') || key.contains(' ')) {
-      throw ArgumentError.value(
-        key,
-        'key',
-        'must not contain /, \\, .., or spaces',
-      );
+      throw ArgumentError.value(key, 'key', 'must not contain /, \\, .., or spaces');
     }
   }
 
@@ -226,12 +201,7 @@ class HomeWidget {
   /// On iOS the file is written under the app group container; on Android under
   /// the application support directory. In both cases the path is
   /// `{container}/home_widget/{key}.{extension}`.
-  static Future<String> saveFile(
-    String key,
-    Uint8List bytes, {
-    String extension = 'bin',
-    String? appGroupId,
-  }) async {
+  static Future<String> saveFile(String key, Uint8List bytes, {String extension = 'bin', String? appGroupId}) async {
     try {
       final String path = await _getPathToRenderTo(key, extension: extension, appGroupId: appGroupId);
       final File file = File(path);
@@ -269,9 +239,7 @@ class HomeWidget {
           // coverage:ignore-start
           if (byteData == null) {
             if (!completer.isCompleted) {
-              completer.completeError(
-                Exception('Failed to encode image to PNG'),
-              );
+              completer.completeError(Exception('Failed to encode image to PNG'));
             }
           } else
           // coverage:ignore-end
@@ -327,10 +295,7 @@ class HomeWidget {
     try {
       final RenderView renderView = RenderView(
         view: ui.PlatformDispatcher.instance.implicitView!,
-        child: RenderPositionedBox(
-          alignment: Alignment.center,
-          child: repaintBoundary,
-        ),
+        child: RenderPositionedBox(alignment: Alignment.center, child: repaintBoundary),
         configuration: ViewConfiguration(
           logicalConstraints: BoxConstraints.tight(logicalSize),
           devicePixelRatio: pixelRatio,
@@ -386,12 +351,7 @@ class HomeWidget {
       // coverage:ignore-end
 
       try {
-        return await saveFile(
-          key,
-          byteData.buffer.asUint8List(),
-          extension: 'png',
-          appGroupId: appGroupId,
-        );
+        return await saveFile(key, byteData.buffer.asUint8List(), extension: 'png', appGroupId: appGroupId);
       } catch (e) {
         throw Exception('Failed to save screenshot to app group container: $e');
       }
@@ -412,66 +372,36 @@ class HomeWidget {
 
   /// Checks if an image is already rendered
   static Future<bool> isFlutterWidgetRendered(String key) async {
-    final File file = File(
-      await _getPathToRenderTo(
-        key,
-        extension: 'png',
-      ),
-    );
+    final File file = File(await _getPathToRenderTo(key, extension: 'png'));
 
     return file.exists();
   }
 
   /// Copies an already rendered widget to another key.
-  static Future<String> copyRenderedFlutterWidget({
-    required String fromKey,
-    required String toKey,
-  }) async {
-    final File fromFile = File(
-      await _getPathToRenderTo(
-        fromKey,
-        extension: 'png',
-      ),
-    );
+  static Future<String> copyRenderedFlutterWidget({required String fromKey, required String toKey}) async {
+    final File fromFile = File(await _getPathToRenderTo(fromKey, extension: 'png'));
 
     if (!await fromFile.exists()) {
       throw Exception('From key doesn\'t exist');
     }
 
-    final toFile = await fromFile.copy(
-      await _getPathToRenderTo(
-        toKey,
-        extension: 'png',
-      ),
-    );
+    final toFile = await fromFile.copy(await _getPathToRenderTo(toKey, extension: 'png'));
 
-    _channel.invokeMethod<bool>('saveWidgetData', {
-      'id': toKey,
-      'data': toFile.path,
-    });
+    _channel.invokeMethod<bool>('saveWidgetData', {'id': toKey, 'data': toFile.path});
 
     return toFile.path;
   }
 
   /// Deletes a rendered widget.
   static Future<void> deletedRenderedWidget(String key) async {
-    final File file = File(
-      await _getPathToRenderTo(
-        key,
-        extension: 'png',
-      ),
-    );
+    final File file = File(await _getPathToRenderTo(key, extension: 'png'));
 
     if (await file.exists()) {
       await file.delete();
     }
   }
 
-  static Future<String> _getPathToRenderTo(
-    String key, {
-    String? appGroupId,
-    String extension = 'bin',
-  }) async {
+  static Future<String> _getPathToRenderTo(String key, {String? appGroupId, String extension = 'bin'}) async {
     final ext = _normalizeExtension(extension);
     _validateKey(key);
 
@@ -481,13 +411,8 @@ class HomeWidget {
       if (Platform.isIOS) {
         final PathProviderFoundation provider = PathProviderFoundation();
         final resolvedGroupId = appGroupId ?? HomeWidget.groupId;
-        assert(
-          resolvedGroupId != null,
-          'No groupId defined. Did you forget to call `HomeWidget.setAppGroupId`',
-        );
-        directory = await provider.getContainerPath(
-          appGroupIdentifier: resolvedGroupId!,
-        );
+        assert(resolvedGroupId != null, 'No groupId defined. Did you forget to call `HomeWidget.setAppGroupId`');
+        directory = await provider.getContainerPath(appGroupIdentifier: resolvedGroupId!);
 
         if (directory == null) {
           throw StateError(
